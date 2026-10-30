@@ -1,0 +1,22 @@
+.profile-container { width: 100%; min-height: 60vh; display: flex; align-items: flex-start; justify-content: center; padding: 28px 12px; }
+.profile-card { width: 100%; max-width: 650px; overflow: hidden; border: 1px solid #e3e9ef; border-radius: 14px; background: #fff; box-shadow: 0 5px 20px rgba(15,23,42,.045); }
+.profile-header { padding: 28px 25px 22px; text-align: center; border-bottom: 1px solid #edf0f4; }
+.profile-avatar { display: grid; place-items: center; width: 62px; height: 62px; margin: 0 auto 13px; border-radius: 50%; background: #e3f4f1; color: #167d78; font-size: 25px; font-weight: 800; }
+.profile-header h2 { margin: 0 0 7px; color: #17212f; font-size: 22px; }
+.profile-header p { margin: 0; color: #788392; font-size: 13px; }
+.profile-card form { padding: 23px 28px 27px; }
+.profile-details { display: grid; grid-template-columns: 1fr; gap: 17px; }
+.profile-item { display: flex; flex-direction: column; gap: 7px; }
+.profile-label { color: #374151; font-size: 12px; font-weight: 700; }
+.profile-input { width: 100%; min-height: 43px; padding: 10px 12px; border: 1px solid #d9e0e8; border-radius: 8px; background: #fff; color: #1f2937; font-size: 13px; }
+.profile-input:focus { outline: none; border-color: #167d78; box-shadow: 0 0 0 3px rgba(22,125,120,.1); }
+.profile-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.profile-update-btn, .profile-delete-btn { min-width: 105px; min-height: 40px; padding: 9px 15px; border: 1px solid #167d78; border-radius: 8px; font-size: 12px; font-weight: 700; }
+.profile-update-btn { background: #167d78; color: #fff; }
+.profile-update-btn:hover:not(:disabled) { background: #116762; }
+.profile-delete-btn { border-color: #d9e0e8; background: #fff; color: #526071; }
+.profile-delete-btn:hover { background: #f5f7fa; }
+.profile-error, .profile-success { margin: 15px 28px 0; padding: 10px 12px; border-radius: 7px; font-size: 12px; }
+.profile-error { background: #fff0f0; color: #b93838; }
+.profile-success { background: #eaf7ef; color: #237a55; }
+@media (max-width: 500px) { .profile-card form { padding: 20px; } .profile-header { padding: 23px 18px; } .profile-actions { flex-direction: column-reverse; } .profile-update-btn, .profile-delete-btn { width: 100%; } }

@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: #1f2937;
+  background: #f7f9fc;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --eh-primary: #167d78;
+  --eh-primary-dark: #116762;
+  --eh-primary-soft: #e8f5f3;
+  --eh-text: #1f2937;
+  --eh-muted: #6b7280;
+  --eh-border: #e2e8f0;
+  --eh-surface: #ffffff;
+  --eh-page: #f7f9fc;
+  --eh-danger: #c24141;
+  --eh-danger-soft: #fff0f0;
+  --eh-success: #237a55;
+  --eh-success-soft: #eaf7ef;
+  --eh-warning: #a86b12;
+  --eh-warning-soft: #fff6e5;
+  --eh-radius: 12px;
+  --eh-shadow: 0 4px 18px rgba(15, 23, 42, 0.045);
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--eh-page); }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .58; }
+a { color: inherit; }
+img { max-width: 100%; }
+h1, h2, h3, h4, p { margin-top: 0; }
+:focus-visible { outline: 3px solid rgba(22, 125, 120, .22); outline-offset: 2px; }

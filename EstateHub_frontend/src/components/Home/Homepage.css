@@ -1,0 +1,19 @@
+.homepage-layout {
+  width: min(100%, 1600px);
+  min-height: calc(100vh - 68px);
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+}
+.homepage-sidebar { min-width: 0; }
+.homepage-content { min-width: 0; width: 100%; }
+@media (max-width: 900px) {
+  .homepage-layout { grid-template-columns: 190px minmax(0, 1fr); padding: 18px; gap: 18px; }
+}
+@media (max-width: 680px) {
+  .homepage-layout { display: flex; flex-direction: column; padding: 14px; gap: 16px; }
+  .homepage-sidebar, .homepage-content { width: 100%; }
+}
