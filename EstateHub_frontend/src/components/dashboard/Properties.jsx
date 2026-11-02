@@ -1,3 +1,4 @@
+
 import {
   useGetAllPropertiesQuery,
   useLazyFilterPropertiesQuery,
@@ -224,7 +225,7 @@ function Properties() {
                         property.images?.[0]
                           ? property.images[0].startsWith("http")
                             ? property.images[0]
-                            : `http://localhost:4000${
+                            : `${import.meta.env.VITE_API_URL}${
                                 property.images[0].startsWith("/")
                                   ? property.images[0]
                                   : `/${property.images[0]}`
@@ -253,6 +254,7 @@ function Properties() {
                         For {property.listingType}
                       </span>
                     </div>
+
                     {property.isAvailable && (
                       <button onClick={() => handleFavorite(property._id)}>
                         {isFavorite ? "♥" : "♡"}
