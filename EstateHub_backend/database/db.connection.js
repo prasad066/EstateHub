@@ -1,8 +1,9 @@
+
 const mongoose = require("mongoose");
 
 const connect = function () {
   mongoose
-    .connect('MONGO_URI', {
+    .connect(process.env.MONGO_URI, {
       dbName: "estatehub",
     })
     .then(() => {
