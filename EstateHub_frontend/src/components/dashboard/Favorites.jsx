@@ -1,3 +1,4 @@
+
 import { useGetAllPropertiesQuery } from "../../services/properties.services";
 import {
   useGetFavoritesQuery,
@@ -13,6 +14,7 @@ function Favorites() {
   const user = useSelector((state) => state.uReducer.id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { data: propertyData } = useGetAllPropertiesQuery();
 
   const { data: favoriteData } = useGetFavoritesQuery(user);
@@ -32,6 +34,7 @@ function Favorites() {
       user,
       property: propertyId,
     }).unwrap();
+
     await favlazyfn(user);
   };
 
@@ -61,7 +64,7 @@ function Favorites() {
                     property.images?.[0]
                       ? property.images[0].startsWith("http")
                         ? property.images[0]
-                        : `http://localhost:4000${
+                        : `${import.meta.env.VITE_API_URL}${
                             property.images[0].startsWith("/")
                               ? property.images[0]
                               : `/${property.images[0]}`
