@@ -1,3 +1,4 @@
+
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Viewproperty.css";
@@ -8,6 +9,7 @@ import {
 } from "../../services/booking.services";
 import { useState } from "react";
 import { useFilterPropertiesQuery } from "../../services/properties.services";
+
 function Viewproperty() {
   const [message, setmessage] = useState("");
   const property_id = useSelector((state) => state.uReducer.property);
@@ -25,6 +27,7 @@ function Viewproperty() {
   const navigate = useNavigate();
   const [addBooking] = useAddBookingMutation();
   const [lazyfn] = useLazyGetBookingsByBuyerQuery();
+
   const handleBooking = async () => {
     const booking = {
       property: property._id,
@@ -121,7 +124,9 @@ function Viewproperty() {
                   image
                     ? image.startsWith("http")
                       ? image
-                      : `http://localhost:4000${image.startsWith("/") ? image : `/${image}`}`
+                      : `${import.meta.env.VITE_API_URL}${
+                          image.startsWith("/") ? image : `/${image}`
+                        }`
                     : "/no-image.png"
                 }
                 alt={`${property.title} - Image ${index + 1}`}
@@ -298,6 +303,7 @@ function Viewproperty() {
                 {property.isAvailable ? "Available" : "Unavailable"}
               </strong>
             </div>
+
             {!isOwner && !existing && (
               <div className="property-address-row">
                 <span>Any Message to buyer</span>
