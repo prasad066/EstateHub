@@ -1,24 +1,57 @@
+
 const Property = require("../model/property.model");
 const Booking = require("../model/booking.model");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+function uploadImage(file) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: "estatehub/properties",
+        resource_type: "image",
+      },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result.secure_url);
+        }
+      }
+    );
+
+    stream.end(file.buffer);
+  });
+}
 
 const addproperty = async (req, res) => {
-  const propertyData = JSON.parse(req.body.propertyData);
+  try {
+    const propertyData = JSON.parse(req.body.propertyData);
 
-  const images = req.files.map((file) => {
-    return "/uploads/" + file.filename;
-  });
+    const images = await Promise.all(
+      (req.files || []).map((file) => uploadImage(file))
+    );
 
-  const property = new Property({
-    ...propertyData,
-    images: images,
-  });
+    const property = new Property({
+      ...propertyData,
+      images: images,
+    });
 
-  const result = await property.save();
+    const result = await property.save();
 
-  res.send({
-    msg: "Property added successfully",
-    property: result,
-  });
+    res.send({
+      msg: "Property added successfully",
+      property: result,
+    });
+  } catch (err) {
+    console.log(err);
+    res.send({ msg: "Error adding property" });
+  }
 };
 
 async function getproperty(req, res) {
@@ -81,7 +114,6 @@ async function filterproperty(req, res) {
   }
 }
 
-
 async function deleteproperty(req, res) {
   const { property, id } = req.query;
 
@@ -108,7 +140,6 @@ async function deleteproperty(req, res) {
     msg: "Property and related bookings deleted successfully",
   });
 }
-
 
 async function updateproperty(req, res) {
   const { property } = req.body;
@@ -149,4 +180,10 @@ async function updateproperty(req, res) {
   });
 }
 
-module.exports = { addproperty, getproperty, filterproperty, deleteproperty,updateproperty };
+module.exports = {
+  addproperty,
+  getproperty,
+  filterproperty,
+  deleteproperty,
+  updateproperty,
+};
