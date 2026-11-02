@@ -1,21 +1,22 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation, Navigate } from 'react-router-dom'
 import './App.css'
 import Navi from './components/navbar/Navi'
 import { useSelector } from 'react-redux'
-import Homepage from './components/Home/Home.jsx'
-import Login from './components/auth/Login.jsx'
-import Register from './components/auth/Register.jsx'
 
 function App() {
-  let token=useSelector((state)=>state.uReducer.token)
+const location = useLocation()
+let token = useSelector((state) => state.uReducer.token)
 
-  return (
-    <div>
-      <Navi></Navi>
-      {!token && <Login></Login>}
-      {token && <Outlet></Outlet>}
-    </div>
-  )
+return ( <div> <Navi />
+
+
+  {!token && location.pathname.startsWith('/home') && <Navigate to="/" />}
+  {!token && !location.pathname.startsWith('/home') && <Outlet />}
+  {token && <Outlet />}
+</div>
+
+
+)
 }
 
 export default App

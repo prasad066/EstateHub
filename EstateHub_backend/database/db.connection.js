@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-require("dotenv").config(); // Ensure you have the dotenv package installed
 
 const connect = function () {
   mongoose
-    .connect(process.env.MONGO_URI, {
+    .connect('mongodb+srv://yajnagoud7810_db_user:6j8ozVKK0aaauiqe@yajnaprasad.ppz2eia.mongodb.net', {
       dbName: "estatehub",
     })
     .then(() => {

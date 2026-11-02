@@ -34,7 +34,7 @@ const userSchema = new Schema(
     },
     created_at: {
       type: Date,
-      default:Date.now()+(5.5*60*60*1000),
+      default: () => new Date(Date.now() + (5.5 * 60 * 60 * 1000)),
     },
   },
 );

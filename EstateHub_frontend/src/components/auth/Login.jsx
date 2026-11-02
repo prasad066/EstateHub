@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
+
   const [user, setuser] = useState({ email: "", password: "" });
   const [loginuser] = useLoginUserMutation();
   const dispatch = useDispatch();
@@ -39,11 +40,15 @@ function Login() {
 
         navigate("/home");
       }
+      if(res.data?.msg=="user not found"){
+        navigate("/loginerror")
+      }
     });
   }
 
   return (
     <div className="login-container">
+
       <form className="login-form" onSubmit={loginhandler}>
         <div className="login-header">
           
@@ -78,6 +83,7 @@ function Login() {
             }
           />
         </div>
+        
 
         <button className="login-button" type="submit">
           Login

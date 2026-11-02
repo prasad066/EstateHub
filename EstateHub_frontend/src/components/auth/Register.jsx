@@ -22,15 +22,20 @@ function Register() {
 
     adduser(user)
       .unwrap()
-      .then(() => {
-        setUser(initialUser);
-        navigate("/");
+      .then((res) => {
+        if (res.msg === "user already exist") {
+          navigate('/registererror')
+        } else {
+          setUser(initialUser);
+          navigate("/");
+        }
       })
       .catch((err) => console.log(err));
   }
 
   return (
     <div className="register-container">
+
       <form className="register-form" onSubmit={handleSubmit}>
         <div className="register-header">
           <h2>Create Account</h2>

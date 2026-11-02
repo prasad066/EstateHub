@@ -2,15 +2,19 @@ const User = require("../model/users.model");
 const jwt = require("jsonwebtoken");
 async function adduser(req, res) {
   console.log(req.body);
-  try {
-    const newuser = User(req.body);
-    await newuser.save();
-    console.log({ message: "user added successful", userdetails: req.body });
-    res.status(201).send({ msg: "user added successful" });
-  } catch (err) {
-    console.log("user already exist");
-    res.status(400).send({ error: "user already exist" });
+
+  const existinguser = await User.findOne({ email: req.body.email });
+
+  if (existinguser) {
+    return res.send({ msg: "user already exist" });
   }
+
+  const newuser = User(req.body);
+  await newuser.save();
+
+  console.log({ message: "user added successful", userdetails: req.body });
+
+  res.send({ msg: "user added successful" });
 }
 const getuser = async (req, res) => {
   const user = await User.findOne({
@@ -67,14 +71,11 @@ const updateuser = async (req, res) => {
   }
 
   try {
-    const user = await User.findByIdAndUpdate(
-      id,
-      {
-        name: name.trim(),
-        email: email.trim(),
-        phone: phone.trim(),
-      }
-    );
+    const user = await User.findByIdAndUpdate(id, {
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+    });
 
     if (!user) {
       res.send({ msg: "User not found" });

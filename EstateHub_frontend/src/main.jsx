@@ -15,6 +15,8 @@ import Viewproperty from "./components/dashboard/Viewproperty.jsx";
 import Bookings from "./components/dashboard/Bookings.jsx";
 import Analytics from "./components/dashboard/Analytics.jsx";
 import Requests from "./components/dashboard/Requests.jsx";
+import Loginerror from "./components/auth/Loginerror.jsx";
+import Registereror from "./components/auth/Registererror.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Login></Login>,
+      },
+      {
+        path: "/loginerror",
+        element: <Loginerror></Loginerror>,
       },
       {
         path: "/home",
@@ -58,7 +64,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/home/requests",
-            element: <Requests></Requests>
+            element: <Requests></Requests>,
           },
         ],
       },
@@ -67,6 +73,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register></Register>,
+  },
+  {
+    path: "/registererror",
+    element: <Registereror></Registereror>,
   },
 ]);
 createRoot(document.getElementById("root")).render(
