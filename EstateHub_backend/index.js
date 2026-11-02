@@ -1,8 +1,9 @@
 
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const path = require("path");
 
 const userrouter = require("./routes/user.routes");
 const propertyrouter = require("./routes/property.routes");
@@ -20,8 +21,6 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 function checkToken(req, res, next) {
   const token = req.headers.token;
