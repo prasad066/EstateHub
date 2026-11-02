@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const favoriteApi = createApi({
   reducerPath: "favoriteApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000/favorite",
+    baseUrl: `${import.meta.env.VITE_API_URL}/favorite`,
   }),
   endpoints: (builder) => ({
     addFavorite: builder.mutation({
