@@ -1,3 +1,4 @@
+
 import { useSelector } from "react-redux";
 import "./Bookings.css";
 import {
@@ -57,6 +58,7 @@ function Bookings() {
       alert(res.error?.data?.message || "Error cancelling booking");
     }
   }
+
   async function sellerdetailshandler(id) {
     const res = await sellerfn(id);
     const seller = res.data;
@@ -226,7 +228,6 @@ function Bookings() {
 
             return (
               <div className="booking-card" key={booking._id}>
-              
                 {/* Property Image */}
                 <div className="booking-property-image">
                   {property?.images?.length > 0 ? (
@@ -234,7 +235,7 @@ function Bookings() {
                       src={
                         property.images[0].startsWith("http")
                           ? property.images[0]
-                          : `http://localhost:4000${
+                          : `${import.meta.env.VITE_API_URL}${
                               property.images[0].startsWith("/")
                                 ? property.images[0]
                                 : `/${property.images[0]}`
@@ -254,7 +255,7 @@ function Bookings() {
                     </div>
                   )}
                 </div>
-                
+
                 {/* Property Information */}
                 <div className="booking-card-content">
                   <div className="booking-card-top">
@@ -325,6 +326,7 @@ function Bookings() {
                         Contact
                       </button>
                     </div>
+
                     <div className="booking-request-info">
                       <span>
                         {canCancel ? "Cancel Booking" : "Booking Status"}
