@@ -1,3 +1,4 @@
+
 import { useSelector } from "react-redux";
 import {
   useGetAllPropertiesQuery,
@@ -144,7 +145,7 @@ function Requests() {
                     prop.images?.[0]
                       ? prop.images[0].startsWith("http")
                         ? prop.images[0]
-                        : `http://localhost:4000${
+                        : `${import.meta.env.VITE_API_URL}${
                             prop.images[0].startsWith("/")
                               ? prop.images[0]
                               : `/${prop.images[0]}`
