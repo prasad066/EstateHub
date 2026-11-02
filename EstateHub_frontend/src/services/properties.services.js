@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const propertyApi = createApi({
   reducerPath: "propertyApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000/property" }),
+  baseQuery: fetchBaseQuery({
+  baseUrl: `${import.meta.env.VITE_API_URL}/property`,
+}),
   endpoints: (builder) => ({
     addProperty: builder.mutation({
       query: (property) => {
