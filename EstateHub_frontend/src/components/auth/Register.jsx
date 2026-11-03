@@ -1,10 +1,11 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../../services/auth.services";
 import "./Register.css";
 
 function Register() {
-  const [adduser] = useRegisterUserMutation();
+  const [adduser, { isLoading }] = useRegisterUserMutation();
   const navigate = useNavigate();
 
   const initialUser = {
@@ -24,7 +25,7 @@ function Register() {
       .unwrap()
       .then((res) => {
         if (res.msg === "user already exist") {
-          navigate('/registererror')
+          navigate("/registererror");
         } else {
           setUser(initialUser);
           navigate("/");
@@ -35,7 +36,6 @@ function Register() {
 
   return (
     <div className="register-container">
-
       <form className="register-form" onSubmit={handleSubmit}>
         <div className="register-header">
           <h2>Create Account</h2>
@@ -53,6 +53,7 @@ function Register() {
               setUser({ ...user, name: e.target.value })
             }
             required
+            disabled={isLoading}
           />
         </div>
 
@@ -67,6 +68,7 @@ function Register() {
               setUser({ ...user, email: e.target.value })
             }
             required
+            disabled={isLoading}
           />
         </div>
 
@@ -81,6 +83,7 @@ function Register() {
               setUser({ ...user, password: e.target.value })
             }
             required
+            disabled={isLoading}
           />
         </div>
 
@@ -95,6 +98,7 @@ function Register() {
               setUser({ ...user, phone: e.target.value })
             }
             required
+            disabled={isLoading}
           />
         </div>
 
@@ -107,6 +111,7 @@ function Register() {
               setUser({ ...user, role: e.target.value })
             }
             required
+            disabled={isLoading}
           >
             <option value="">Select account type</option>
             <option value="buyer">Buyer</option>
@@ -114,8 +119,12 @@ function Register() {
           </select>
         </div>
 
-        <button className="register-button" type="submit">
-          Create Account
+        <button
+          className="register-button"
+          type="submit"
+          disabled={isLoading}
+        >
+          {isLoading ? "Creating Account..." : "Create Account"}
         </button>
 
         <p className="register-footer">
