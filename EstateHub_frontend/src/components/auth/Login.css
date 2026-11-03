@@ -38,3 +38,13 @@
 .login-footer span { color: #167d78; font-weight: 700; cursor: pointer; }
 .login-footer span:hover { text-decoration: underline; }
 @media (max-width: 480px) { .login-form { padding: 26px 21px; } .login-header h2 { font-size: 24px; } }
+
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.login-button {
+  transition: 0.3s ease;
+}
