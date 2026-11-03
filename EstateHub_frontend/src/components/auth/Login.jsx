@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useLoginUserMutation } from "../../services/auth.services";
 import { useDispatch } from "react-redux";
@@ -13,16 +14,21 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
-
   const [user, setuser] = useState({ email: "", password: "" });
   const [loginuser] = useLoginUserMutation();
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function loginhandler(e) {
+  async function loginhandler(e) {
     e.preventDefault();
 
-    loginuser(user).then((res) => {
+    try {
+      setIsLoading(true);
+
+      const res = await loginuser(user);
+
       if (res.data?.token) {
         window.localStorage.setItem("token", res.data.token);
         window.localStorage.setItem("role", res.data.role);
@@ -40,18 +46,21 @@ function Login() {
 
         navigate("/home");
       }
-      if(res.data?.msg=="user not found"){
-        navigate("/loginerror")
+
+      if (res.data?.msg === "user not found") {
+        navigate("/loginerror");
       }
-    });
+    } catch (error) {
+      console.log("Login failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
     <div className="login-container">
-
       <form className="login-form" onSubmit={loginhandler}>
         <div className="login-header">
-          
           <h2>Welcome Back</h2>
           <p>Login to your EstateHub account.</p>
         </div>
@@ -64,6 +73,7 @@ function Login() {
             placeholder="Enter your email"
             value={user.email}
             required
+            disabled={isLoading}
             onChange={(e) =>
               setuser({ ...user, email: e.target.value })
             }
@@ -78,15 +88,19 @@ function Login() {
             placeholder="Enter your password"
             value={user.password}
             required
+            disabled={isLoading}
             onChange={(e) =>
               setuser({ ...user, password: e.target.value })
             }
           />
         </div>
-        
 
-        <button className="login-button" type="submit">
-          Login
+        <button
+          className="login-button"
+          type="submit"
+          disabled={isLoading}
+        >
+          {isLoading ? "Logging in..." : "Login"}
         </button>
 
         <p className="login-footer">
